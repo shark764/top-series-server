@@ -1,0 +1,15 @@
+# dependencies
+node_modules
+
+# migrations
+prisma/migrations
+
+# production
+/build
+
+# testing
+/coverage
+
+.eslintcache
+
+.netlify*

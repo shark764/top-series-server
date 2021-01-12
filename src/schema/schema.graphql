@@ -1,0 +1,67 @@
+scalar DateTime
+
+type Query {
+  getCategories: [Category!]!
+  getCategory(id: ID!): Category
+  getServices: [Service!]!
+  getService(id: ID!): Service
+  getSeries: [Serie!]!
+  getSerie(id: ID!): Serie
+  getActors: [Actor!]!
+  getActor(id: ID!): Actor
+  getCasts: [Cast!]!
+  getCast(id: ID!): Cast
+}
+
+type Category {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  series: [Serie!]
+}
+
+type Service {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  series: [Serie!]
+}
+
+type Serie {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  description: String
+  category:    Category 
+  categoryId:  ID!
+  service:     Service  
+  serviceId:     ID!
+  cast      :  [Cast!]
+}
+
+type Actor {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  cast      :  [Cast!]
+}
+
+type Cast {
+  id      Int   @id @default(autoincrement())
+  link    Actor @relation(fields: [actorId], references: [id])
+  actorId Int
+  user    Serie @relation(fields: [serieId], references: [id])
+  serieId Int
+
+  @@unique([actorId, serieId])
+}
+
+
+type Subscription {
+  newLink: Link
+  newVote: Vote
+}
