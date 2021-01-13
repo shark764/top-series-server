@@ -31,6 +31,7 @@ type Mutation {
   addSerie(
     name: String!
     description: String
+    imageUrl: String!
     categoryId: ID!
     serviceId: ID!
   ): Serie!
@@ -38,13 +39,14 @@ type Mutation {
     id: ID!
     name: String!
     description: String
+    imageUrl: String
     categoryId: ID!
     serviceId: ID!
   ): Serie!
   removeSerie(id: ID!): Serie
   # Actors
-  addActor(name: String!): Actor!
-  updateActor(id: ID!, name: String!): Actor
+  addActor(name: String!, imageUrl: String!): Actor!
+  updateActor(id: ID!, name: String!, imageUrl: String): Actor
   removeActor(id: ID!): Actor
   # Casts
   addCast(serieId: ID!, actorId: ID!): Cast
@@ -74,6 +76,7 @@ type Serie {
   updatedAt: DateTime
   name: String!
   description: String
+  imageUrl: String!
   category: Category
   categoryId: ID!
   service: Service
@@ -86,6 +89,7 @@ type Actor {
   createdAt: DateTime
   updatedAt: DateTime
   name: String!
+  imageUrl: String!
   series: [Cast!]
 }
 

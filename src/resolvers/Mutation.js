@@ -73,6 +73,7 @@ const resolver = {
       data: {
         name: args.name,
         description: args.description,
+        imageUrl: args.imageUrl,
         category: { connect: { id: Number(args.categoryId) } },
         service: { connect: { id: Number(args.serviceId) } },
       },
@@ -88,6 +89,7 @@ const resolver = {
       data: {
         name: args.name,
         description: args.description,
+        imageUrl: args.imageUrl,
         category: { connect: { id: Number(args.categoryId) } },
         service: { connect: { id: Number(args.serviceId) } },
         updatedAt: new Date(),
@@ -112,6 +114,7 @@ const resolver = {
     const newActor = context.prisma.actor.create({
       data: {
         name: args.name,
+        imageUrl: args.imageUrl,
       },
     });
     context.pubsub.publish('NEW_ACTOR', newActor);
@@ -124,6 +127,7 @@ const resolver = {
       where: { id },
       data: {
         name: args.name,
+        imageUrl: args.imageUrl,
         updatedAt: new Date(),
       },
     });
