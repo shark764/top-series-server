@@ -1,16 +1,55 @@
 scalar DateTime
 
 type Query {
+  # Categories
   getCategories: [Category!]!
   getCategory(id: ID!): Category
+  # Services
   getServices: [Service!]!
   getService(id: ID!): Service
+  # Series
   getSeries: [Serie!]!
   getSerie(id: ID!): Serie
+  # Actors
   getActors: [Actor!]!
   getActor(id: ID!): Actor
+  # Casts
   getCasts: [Cast!]!
   getCast(id: ID!): Cast
+}
+
+type Mutation {
+  # Categories
+  addCategory(name: String!): Category!
+  updateCategory(id: ID!, name: String!): Category
+  removeCategory(id: ID!): Category
+  # Services
+  addService(name: String!): Service!
+  updateService(id: ID!, name: String!): Service
+  removeService(id: ID!): Service
+  # Series
+  addSerie(
+    name: String!
+    description: String
+    categoryId: ID!
+    serviceId: ID!
+  ): Serie!
+  updateSerie(
+    id: ID!
+    name: String!
+    description: String
+    categoryId: ID!
+    serviceId: ID!
+  ): Serie!
+  removeSerie(id: ID!): Serie
+  # Actors
+  addActor(name: String!): Actor!
+  updateActor(id: ID!, name: String!): Actor
+  removeActor(id: ID!): Actor
+  # Casts
+  addCast(serieId: ID!, actorId: ID!): Cast
+  updateCast(id: ID!, serieId: ID!, actorId: ID!): Cast
+  removeCast(id: ID!): Cast
 }
 
 type Category {
@@ -35,11 +74,11 @@ type Serie {
   updatedAt: DateTime
   name: String!
   description: String
-  category:    Category 
-  categoryId:  ID!
-  service:     Service  
-  serviceId:     ID!
-  cast      :  [Cast!]
+  category: Category
+  categoryId: ID!
+  service: Service
+  serviceId: ID!
+  cast: [Cast!]
 }
 
 type Actor {
@@ -47,21 +86,31 @@ type Actor {
   createdAt: DateTime
   updatedAt: DateTime
   name: String!
-  cast      :  [Cast!]
+  series: [Cast!]
 }
 
 type Cast {
-  id      Int   @id @default(autoincrement())
-  link    Actor @relation(fields: [actorId], references: [id])
-  actorId Int
-  user    Serie @relation(fields: [serieId], references: [id])
-  serieId Int
-
-  @@unique([actorId, serieId])
+  id: ID!
+  serie: Serie!
+  serieId: ID!
+  actor: Actor!
+  actorId: ID!
 }
 
-
 type Subscription {
-  newLink: Link
-  newVote: Vote
+  newCategory: Category
+  updatedCategory: Category
+  removedCategory: Category
+  newService: Service
+  updatedService: Service
+  removedService: Service
+  newSerie: Serie
+  updatedSerie: Serie
+  removedSerie: Serie
+  newActor: Actor
+  updatedActor: Actor
+  removedActor: Actor
+  newCast: Cast
+  updatedCast: Cast
+  removedCast: Cast
 }
