@@ -1,0 +1,19 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Serie",
+      "field": "imageUrl",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Actor",
+      "field": "imageUrl",
+      "type": "String",
+      "arity": "Required"
+    }
+  ]
+}

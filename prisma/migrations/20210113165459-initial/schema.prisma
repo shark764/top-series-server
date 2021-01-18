@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  name      String
+  series    Serie[]
+}
+
+model Service {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  name      String
+  series    Serie[]
+}
+
+model Serie {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  name        String
+  description String
+  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
+  service     Service?  @relation(fields: [serviceId], references: [id])
+  serviceId   Int?
+  cast        Cast[]
+}
+
+model Actor {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  name      String
+  series    Cast[]
+}
+
+model Cast {
+  id      Int   @id @default(autoincrement())
+  actor   Actor @relation(fields: [actorId], references: [id])
+  actorId Int
+  serie   Serie @relation(fields: [serieId], references: [id])
+  serieId Int
+
+  @@unique([actorId, serieId])
+}
