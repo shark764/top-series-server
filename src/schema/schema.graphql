@@ -8,7 +8,12 @@ type Query {
   getServices: [Service!]!
   getService(id: ID!): Service
   # Series
-  getSeries: [Serie!]!
+  getSeries(
+    filter: String
+    skip: Int
+    take: Int
+    orderBy: SerieOrderByInput
+  ): TotalSerie
   getSerie(id: ID!): Serie
   # Actors
   getActors: [Actor!]!
@@ -117,4 +122,21 @@ type Subscription {
   newCast: Cast
   updatedCast: Cast
   removedCast: Cast
+}
+
+input SerieOrderByInput {
+  name: Sort
+  categoryId: Sort
+  serviceId: Sort
+  createdAt: Sort
+}
+
+enum Sort {
+  asc
+  desc
+}
+
+type TotalSerie {
+  series: [Serie!]
+  count: Int!
 }

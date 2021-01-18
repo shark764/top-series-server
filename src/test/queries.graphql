@@ -1,0 +1,25 @@
+# Write your query or mutation here
+query {
+  getSeries(filter: "bad", skip: 0, take: 5, orderBy: { name: asc }) {
+    series {
+      id
+      name
+      category {
+        id
+        name
+      }
+      service {
+        id
+        name
+      }
+    }
+    count
+  }
+}
+# mutation {
+#   removeActor (id: 23) {
+#     id,
+#     name,
+#     imageUrl
+#   }
+# }

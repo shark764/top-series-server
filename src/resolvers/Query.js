@@ -19,7 +19,27 @@ const resolver = {
 
   // Series
   getSeries: async (parent, args, context) => {
-    return context.prisma.serie.findMany();
+    const { filter, skip, take, orderBy } = args;
+    const where = filter
+      ? {
+          OR: [
+            { name: { contains: filter } },
+            { description: { contains: filter } },
+          ],
+        }
+      : {};
+
+    const series = await context.prisma.serie.findMany({
+      where,
+      skip,
+      take,
+      orderBy,
+    });
+    const count = await context.prisma.serie.count({ where });
+    return {
+      series,
+      count,
+    };
   },
   getSerie: async (parent, args, context) => {
     const id = parseInt(args.id, 10);
