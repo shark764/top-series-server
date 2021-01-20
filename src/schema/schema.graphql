@@ -95,7 +95,7 @@ type Actor {
   updatedAt: DateTime
   name: String!
   imageUrl: String!
-  series: [Cast!]
+  cast: [Cast!]
 }
 
 type Cast {
